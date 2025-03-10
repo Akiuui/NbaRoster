@@ -12,10 +12,20 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 
 @app.route('/')
 def home():
-    roster = CommonTeamRoster(1).get_dict()
 
+    try:
+        logging.info("Trying to fetch the team roster")
+        roster = CommonTeamRoster(1).get_dict()
+        logging.info("Successfully managed to fetch")
+
+    except Exception as e:
+        logging.error("Exceptionnnnn")
+        return jsonify({"error":e})
+    
+        
+    
     # roster_data =  roster.to_disc(orient="records")
-
+    
     return jsonify({"roster":roster})
     # return roster
 
